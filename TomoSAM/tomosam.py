@@ -372,16 +372,16 @@ class tomosamWidget(ScriptedLoadableModuleWidget, VTKObservationMixin):
 
     def freezeSlice(self):
         slice_widget = self.lm.sliceWidget(self.logic.slice_direction)
-        interactorStyle = slice_widget.sliceView().sliceViewInteractorStyle()
-        interactorStyle.SetActionEnabled(interactorStyle.BrowseSlice, False)
+        interactorObserver = slice_widget.sliceView().interactorObserver()
+        interactorObserver.SetActionEnabled(interactorObserver.BrowseSlice, False)
         slice_widget.sliceView().setBackgroundColor(qt.QColor.fromRgbF(1, 1, 1))
         self.slice_frozen = True
         slice_widget.sliceController().setDisabled(self.slice_frozen)  # freeze slidebar
 
     def unfreezeSlice(self):
         slice_widget = self.lm.sliceWidget(self.logic.slice_direction)
-        interactorStyle = slice_widget.sliceView().sliceViewInteractorStyle()
-        interactorStyle.SetActionEnabled(interactorStyle.BrowseSlice, True)
+        interactorObserver = slice_widget.sliceView().interactorObserver()
+        interactorObserver.SetActionEnabled(interactorObserver.BrowseSlice, True)
         slice_widget.sliceView().setBackgroundColor(qt.QColor.fromRgbF(0, 0, 0))
         self.slice_frozen = False
         slice_widget.sliceController().setDisabled(self.slice_frozen)  # freeze slidebar
